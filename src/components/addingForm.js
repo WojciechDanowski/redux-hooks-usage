@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./addingForm.css";
 import { useDispatch } from "react-redux";
 import { ADD_USER } from "../reducer/actions";
-
+import uuid from "uuid/v4";
 const AddingForm = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -30,7 +30,7 @@ const AddingForm = () => {
         name,
         surname,
         age,
-        id,
+        id: uuid(),
       },
     });
   };

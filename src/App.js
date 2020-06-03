@@ -1,7 +1,7 @@
 import React from "react";
 
 import AddingForm from "./components/addingForm";
-import PepoleList from "./components/PepoleList";
+import UsersList from "./components/UsersList";
 import { Provider } from "react-redux";
 import store from "./reducer/store";
 
@@ -10,7 +10,7 @@ const App = () => {
     <Provider store={store}>
       <div className="app">
         <AddingForm />
-        <PepoleList />
+        <UsersList />
       </div>
     </Provider>
   );
