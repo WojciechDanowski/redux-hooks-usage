@@ -1,0 +1,15 @@
+.AddingForm {
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+input,
+button {
+    padding: 5px;
+    width: 130px;
+    margin: 10px 10px;
+    justify-content: space-around;
+}
