@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { DELETE_USER, EDIT_USER } from "../reducer/actions";
+import { DELETE_USER, EDIT_USER } from "../actions/actions";
+import { editUser } from "../services/users";
 const Users = () => {
   const pepoleArr = useSelector((state) => state.usersReducer.pepole);
   console.log(pepoleArr);
@@ -35,13 +36,14 @@ const Users = () => {
   };
 
   const handleEditionSubmit = () => {
-    dispatch({
-      type: EDIT_USER,
-      payload: {
-        id: editPersonId,
-        newValues: editedValue,
-      },
-    });
+    dispatch(editUser(editedValue));
+    // dispatch({
+    //   type: EDIT_USER,
+    //   payload: {
+    //     id: editPersonId,
+    //     newValues: editedValue,
+    //   },
+    // });
     setEditedValue({});
     setEditPersonId(undefined);
   };
@@ -49,9 +51,10 @@ const Users = () => {
   return pepoleArr.map((editedVAlue) => {
     return (
       <li key={editedVAlue.id}>
-        {editedVAlue.name} {editedVAlue.surname}, wiek: {editedVAlue.age}
-        <button onClick={() => handleDeleteUser(editedVAlue.id)}> x </button>
-        <button onClick={() => handleEditUser(editedVAlue.id)}>Edytuj</button>
+        {" "}
+        {editedVAlue.name} {editedVAlue.surname}, wiek: {editedVAlue.age}{" "}
+        <button onClick={() => handleDeleteUser(editedVAlue.id)}> x </button>{" "}
+        <button onClick={() => handleEditUser(editedVAlue.id)}> Edytuj </button>{" "}
         {editedVAlue.id === editPersonId && (
           <>
             <div className="AddingForm">
@@ -61,25 +64,25 @@ const Users = () => {
                 name="name"
                 onChange={onEditHandleChange}
                 value={editedValue.name}
-              />
+              />{" "}
               <input
                 type="text"
                 placeholder="Podaj nazwisko..."
                 name="surname"
                 onChange={onEditHandleChange}
                 value={editedValue.surname}
-              />
+              />{" "}
               <input
                 type="number"
                 placeholder="wiek"
                 name="age"
                 onChange={onEditHandleChange}
                 value={editedValue.age}
-              />
-              <button onClick={handleEditionSubmit}>Potwierdź edycję</button>
-            </div>
+              />{" "}
+              <button onClick={handleEditionSubmit}> Potwierdź edycję </button>{" "}
+            </div>{" "}
           </>
-        )}
+        )}{" "}
       </li>
     );
   });
