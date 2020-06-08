@@ -18,11 +18,17 @@ export const fetchUsers = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        "https://react-redux-hooks-704ffa.firebaseio.com/users.json"
-      ).then((response) =>
-        response.json().then((res) => console.log(res.name, "res"))
+        "https://react-redux-hooks-704ffa.firebaseio.com/users.json/"
       );
-      dispatch({ type: FETCH_USERS, payload: responseMock });
+      const responseBody = await response.json();
+      console.log(responseBody, "response Body");
+      let users = [];
+      Object.keys(responseBody).forEach((key) => {
+        const user = { ...responseBody[key], id: key };
+        users = [...users, user];
+      });
+      console.log(users, "users");
+      dispatch({ type: FETCH_USERS, payload: users });
     } catch (error) {
       console.log(error);
     }
@@ -58,9 +64,16 @@ export const addUser = (user) => {
 export const deleteUser = (id) => {
   return async (dispatch) => {
     try {
-      await fetch(`https://react-redux-hooks-704ffa.firebaseio.com/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://react-redux-hooks-704ffa.firebaseio.com/users.json/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
       dispatch({
         type: DELETE_USER,
       });
@@ -75,9 +88,13 @@ export const editUser = (user) => {
   return async (dispatch) => {
     try {
       await fetch(
-        `https://react-redux-hooks-704ffa.firebaseio.com/${user.id}`,
+        `https://react-redux-hooks-704ffa.firebaseio.com/users.json/${user.id}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
           body: JSON.stringify(user),
         }
       );
