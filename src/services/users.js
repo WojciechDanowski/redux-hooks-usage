@@ -5,15 +5,6 @@ import {
   EDIT_USER,
 } from "../actions/actions";
 
-const responseMock = [
-  {
-    name: "Zbigniew",
-    surname: "Boniek:D",
-    age: 25,
-    id: 1,
-  },
-];
-
 export const fetchUsers = () => {
   return async (dispatch) => {
     try {
@@ -23,11 +14,12 @@ export const fetchUsers = () => {
       const responseBody = await response.json();
       console.log(responseBody, "response Body");
       let users = [];
-      Object.keys(responseBody).forEach((key) => {
+
+      Object.keys(responseBody || {}).forEach((key) => {
         const user = { ...responseBody[key], id: key };
         users = [...users, user];
       });
-      console.log(users[1], "users");
+
       dispatch({ type: FETCH_USERS, payload: users });
     } catch (error) {
       console.log(error);
@@ -49,10 +41,10 @@ export const addUser = (user) => {
           body: JSON.stringify(user),
         }
       );
-      const responseBody = await response.json();
-      console.log(responseBody.name);
+
       dispatch({
         type: ADD_USER,
+        payload: user,
       });
       dispatch(fetchUsers());
     } catch (error) {
@@ -65,7 +57,7 @@ export const deleteUser = (id) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `https://react-redux-hooks-704ffa.firebaseio.com/users.json/`,
+        `https://react-redux-hooks-704ffa.firebaseio.com/users/${id}.json`,
         {
           method: "DELETE",
           headers: {
@@ -77,6 +69,7 @@ export const deleteUser = (id) => {
 
       dispatch({
         type: DELETE_USER,
+        payload: { id },
       });
       dispatch(fetchUsers());
     } catch (error) {
@@ -85,11 +78,11 @@ export const deleteUser = (id) => {
   };
 };
 
-export const editUser = (user) => {
+export const editUser = (user, id) => {
   return async (dispatch) => {
     try {
-      await fetch(
-        `https://react-redux-hooks-704ffa.firebaseio.com/users.json`,
+      const response = await fetch(
+        `https://react-redux-hooks-704ffa.firebaseio.com/users/${id}.json`,
         {
           method: "PUT",
           headers: {
@@ -99,6 +92,8 @@ export const editUser = (user) => {
           body: JSON.stringify(user),
         }
       );
+      dispatch({ type: EDIT_USER, payload: { ...user, id } });
+      dispatch(fetchUsers());
     } catch (error) {
       console.log(error);
     }

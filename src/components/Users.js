@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { DELETE_USER, EDIT_USER } from "../actions/actions";
+
 import { editUser, deleteUser } from "../services/users";
 const Users = () => {
   const pepoleArr = useSelector((state) => state.usersReducer.pepole);
@@ -10,14 +10,14 @@ const Users = () => {
   const [editPersonId, setEditPersonId] = useState(undefined);
   const [editedValue, setEditedValue] = useState({});
   const handleDeleteUser = (id) => {
-    dispatch(deleteUser());
+    dispatch(deleteUser(id));
 
-    dispatch({
-      type: DELETE_USER,
-      payload: {
-        id,
-      },
-    });
+    // dispatch({
+    //   type: DELETE_USER,
+    //   payload: {
+    //     id,
+    //   },
+    // });
   };
 
   const handleEditUser = (id) => {
@@ -38,14 +38,14 @@ const Users = () => {
   };
 
   const handleEditionSubmit = () => {
-    dispatch(editUser(editedValue));
-    dispatch({
-      type: EDIT_USER,
-      payload: {
-        id: editPersonId,
-        newValues: editedValue,
-      },
-    });
+    dispatch(editUser(editedValue, editPersonId));
+    // dispatch({
+    //   type: EDIT_USER,
+    //   payload: {
+    //     id: editPersonId,
+    //     newValues: editedValue,
+    //   },
+    // });
     setEditedValue({});
     setEditPersonId(undefined);
   };

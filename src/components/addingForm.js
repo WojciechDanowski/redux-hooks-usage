@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./addingForm.css";
 import { useDispatch } from "react-redux";
-import { ADD_USER } from "../actions/actions";
+
 import uuid from "uuid/v4";
-import firebase from "../reducer/fireBaseConfig";
+
 import { fetchUsers, addUser } from "../services/users";
 
 const AddingForm = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState("");
-  const [id, setId] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUsers());
-  });
+  }, [dispatch]);
 
   const nameHandle = (e) => {
     setName(e.target.value);
@@ -32,15 +31,15 @@ const AddingForm = () => {
 
   const handleClick = () => {
     dispatch(addUser({ name, surname, age, id: uuid() }));
-    dispatch({
-      type: ADD_USER,
-      payload: {
-        name,
-        surname,
-        age,
-        id: uuid(),
-      },
-    });
+    // dispatch({
+    //   type: ADD_USER,
+    //   payload: {
+    //     name,
+    //     surname,
+    //     age,
+    //     id: uuid(),
+    //   },
+    // });
   };
 
   return (
