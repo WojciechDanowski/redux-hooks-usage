@@ -32,14 +32,15 @@ const AddingForm = () => {
 
   const handleClick = () => {
     dispatch(addUser({ name, surname, age, id: uuid() }));
-
-    // type: ADD_USER,
-    // payload: {
-    //   name,
-    //   surname,
-    //   age,
-    //   id: uuid(),
-    // },
+    dispatch({
+      type: ADD_USER,
+      payload: {
+        name,
+        surname,
+        age,
+        id: uuid(),
+      },
+    });
   };
 
   return (

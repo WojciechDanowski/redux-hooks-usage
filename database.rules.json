@@ -2,6 +2,8 @@
   "rules": {
     ".read": true,
     ".write": true,
-    ".auth": true
+    ".auth": true,
+    ".delete": true
+
   }
 }

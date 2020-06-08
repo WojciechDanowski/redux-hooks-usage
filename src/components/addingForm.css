@@ -13,3 +13,7 @@ button {
     margin: 10px 10px;
     justify-content: space-around;
 }
+
+li {
+    list-style: none;
+}

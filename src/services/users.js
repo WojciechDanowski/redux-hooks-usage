@@ -27,7 +27,7 @@ export const fetchUsers = () => {
         const user = { ...responseBody[key], id: key };
         users = [...users, user];
       });
-      console.log(users, "users");
+      console.log(users[1], "users");
       dispatch({ type: FETCH_USERS, payload: users });
     } catch (error) {
       console.log(error);
@@ -64,8 +64,8 @@ export const addUser = (user) => {
 export const deleteUser = (id) => {
   return async (dispatch) => {
     try {
-      await fetch(
-        `https://react-redux-hooks-704ffa.firebaseio.com/users.json/${id}`,
+      const response = await fetch(
+        `https://react-redux-hooks-704ffa.firebaseio.com/users.json/`,
         {
           method: "DELETE",
           headers: {
@@ -74,6 +74,7 @@ export const deleteUser = (id) => {
           },
         }
       );
+
       dispatch({
         type: DELETE_USER,
       });
@@ -88,7 +89,7 @@ export const editUser = (user) => {
   return async (dispatch) => {
     try {
       await fetch(
-        `https://react-redux-hooks-704ffa.firebaseio.com/users.json/${user.id}`,
+        `https://react-redux-hooks-704ffa.firebaseio.com/users.json`,
         {
           method: "PUT",
           headers: {

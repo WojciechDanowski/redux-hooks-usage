@@ -14,38 +14,32 @@ const usersReducer = (state = initState, action) => {
     case ADD_USER:
       return {
         ...state,
+        pepole: [...state.pepole].concat({
+          name: action.payload.name,
+          surname: action.payload.surname,
+          age: action.payload.age,
+          id: action.payload.id,
+        }),
       };
-
-    // case ADD_USER:
-    //   return {
-    //     ...state,
-    //     pepole: [...state.pepole].concat({
-    //       name: action.payload.name,
-    //       surname: action.payload.surname,
-    //       age: action.payload.age,
-    //       id: action.payload.id,
-    //     }),
-    //   };
     case DELETE_USER:
       return {
         ...state,
-        // ...state,
-        // pepole: state.pepole.filter(
-        //   (person) => person.id !== action.payload.id
-        // ),
+        pepole: state.pepole.filter(
+          (person) => person.id !== action.payload.id
+        ),
       };
     case EDIT_USER:
       return {
         ...state,
-        // pepole: state.pepole.map((person) => {
-        //   if (person.id !== action.payload.id) {
-        //     return person;
-        //   }
-        //   return {
-        //     ...person,
-        //     ...action.payload.newValues,
-        //   };
-        // }),
+        pepole: state.pepole.map((person) => {
+          if (person.id !== action.payload.id) {
+            return person;
+          }
+          return {
+            ...person,
+            ...action.payload.newValues,
+          };
+        }),
       };
     case FETCH_USERS:
       return {
