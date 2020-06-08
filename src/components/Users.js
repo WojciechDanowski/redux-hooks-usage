@@ -11,13 +11,6 @@ const Users = () => {
   const [editedValue, setEditedValue] = useState({});
   const handleDeleteUser = (id) => {
     dispatch(deleteUser(id));
-
-    // dispatch({
-    //   type: DELETE_USER,
-    //   payload: {
-    //     id,
-    //   },
-    // });
   };
 
   const handleEditUser = (id) => {
