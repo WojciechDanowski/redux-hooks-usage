@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { editUser, deleteUser } from "../services/users";
-const Users = () => {
+import { editUser, deleteUser, fetchUsers } from "../services/users";
+const Users = (props) => {
   const pepole = useSelector((state) => state.usersReducer.pepole);
 
   const dispatch = useDispatch();
 
-  const [editPersonId, setEditPersonId] = useState(undefined);
-  const [editedValue, setEditedValue] = useState({});
-  const handleDeleteUser = (id) => {
-    dispatch(deleteUser(id));
-  };
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  const [editPersonId, setEditPersonId] = useState("");
+  const [editedValue, setEditedValue] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+
+  // const handleDeleteUser = (id) => {
+  //   dispatch(deleteUser(id));
+  // };
 
   const handleEditUser = (id) => {
     setEditPersonId(id);
@@ -37,14 +44,14 @@ const Users = () => {
     setEditPersonId("");
   };
 
-  return pepole.map((editedVAlue) => {
+  return pepole.map((editedValue) => {
     return (
-      <li key={editedVAlue.id}>
+      <li key={editedValue.id}>
         {" "}
-        {editedVAlue.name} {editedVAlue.surname}, wiek: {editedVAlue.age}{" "}
-        <button onClick={() => handleDeleteUser(editedVAlue.id)}> x </button>{" "}
-        <button onClick={() => handleEditUser(editedVAlue.id)}> Edytuj </button>{" "}
-        {editedVAlue.id === editPersonId && (
+        {editedValue.name} {editedValue.surname}, wiek: {editedValue.age}{" "}
+        <button onClick={() => props.handleDelete(editedValue.id)}> x </button>{" "}
+        <button onClick={() => handleEditUser(editedValue.id)}> Edytuj </button>{" "}
+        {editedValue.id === editPersonId && (
           <>
             <div className="AddingForm">
               <input

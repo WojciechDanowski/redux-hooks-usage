@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./addingForm.css";
 import { useDispatch } from "react-redux";
 
@@ -10,12 +10,9 @@ const AddingForm = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState("");
-
+  const [editPersonId, setEditPersonId] = useState("");
+  const [editedValue, setEditedValue] = useState("");
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
 
   const nameHandle = (e) => {
     setName(e.target.value);
@@ -30,7 +27,13 @@ const AddingForm = () => {
   };
 
   const handleClick = () => {
-    dispatch(addUser({ name, surname, age, id: uuid() }));
+    const payload = {
+      name,
+      surname,
+      age,
+      id: uuid(),
+    };
+    dispatch(addUser(payload));
   };
 
   return (

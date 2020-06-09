@@ -3,7 +3,7 @@ import {
   ADD_USER,
   DELETE_USER,
   EDIT_USER,
-  FETCH_USERS,
+  ADD_USERS,
 } from "../actions/actions";
 const initState = {
   pepole: [],
@@ -14,12 +14,7 @@ const usersReducer = (state = initState, action) => {
     case ADD_USER:
       return {
         ...state,
-        pepole: [...state.pepole].concat({
-          name: action.payload.name,
-          surname: action.payload.surname,
-          age: action.payload.age,
-          id: action.payload.id,
-        }),
+        pepole: [...state.pepole].concat(action.payload),
       };
     case DELETE_USER:
       return {
@@ -37,11 +32,11 @@ const usersReducer = (state = initState, action) => {
           }
           return {
             ...person,
-            ...action.payload.newValues,
+            ...action.payload,
           };
         }),
       };
-    case FETCH_USERS:
+    case ADD_USERS:
       return {
         ...state,
         pepole: action.payload,
