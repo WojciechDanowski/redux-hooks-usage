@@ -1,5 +1,5 @@
 import {
-  FETCH_USERS,
+  ADD_USERS,
   ADD_USER,
   DELETE_USER,
   EDIT_USER,
@@ -20,7 +20,7 @@ export const fetchUsers = () => {
         users = [...users, user];
       });
 
-      dispatch({ type: FETCH_USERS, payload: users });
+      dispatch({ type: ADD_USERS, payload: users });
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +46,6 @@ export const addUser = (user) => {
         type: ADD_USER,
         payload: user,
       });
-      dispatch(fetchUsers());
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +70,6 @@ export const deleteUser = (id) => {
         type: DELETE_USER,
         payload: { id },
       });
-      dispatch(fetchUsers());
     } catch (error) {
       console.log(error);
     }
@@ -92,8 +90,7 @@ export const editUser = (user, id) => {
           body: JSON.stringify(user),
         }
       );
-      dispatch({ type: EDIT_USER, payload: { ...user, id } });
-      dispatch(fetchUsers());
+      dispatch({ type: EDIT_USER, payload: { ...user } });
     } catch (error) {
       console.log(error);
     }
