@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { editUser, deleteUser } from "../services/users";
 const Users = () => {
-  const pepoleArr = useSelector((state) => state.usersReducer.pepole);
-  console.log(pepoleArr);
+  const pepole = useSelector((state) => state.usersReducer.pepole);
+
   const dispatch = useDispatch();
 
   const [editPersonId, setEditPersonId] = useState(undefined);
@@ -15,7 +15,7 @@ const Users = () => {
 
   const handleEditUser = (id) => {
     setEditPersonId(id);
-    const currentUserValues = pepoleArr.find((person) => person.id === id);
+    const currentUserValues = pepole.find((person) => person.id === id);
     setEditedValue(currentUserValues);
   };
 
@@ -32,18 +32,12 @@ const Users = () => {
 
   const handleEditionSubmit = () => {
     dispatch(editUser(editedValue, editPersonId));
-    // dispatch({
-    //   type: EDIT_USER,
-    //   payload: {
-    //     id: editPersonId,
-    //     newValues: editedValue,
-    //   },
-    // });
+
     setEditedValue({});
-    setEditPersonId(undefined);
+    setEditPersonId("");
   };
 
-  return pepoleArr.map((editedVAlue) => {
+  return pepole.map((editedVAlue) => {
     return (
       <li key={editedVAlue.id}>
         {" "}

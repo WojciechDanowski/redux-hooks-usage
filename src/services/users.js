@@ -12,7 +12,7 @@ export const fetchUsers = () => {
         "https://react-redux-hooks-704ffa.firebaseio.com/users.json/"
       );
       const responseBody = await response.json();
-      console.log(responseBody, "response Body");
+
       let users = [];
 
       Object.keys(responseBody || {}).forEach((key) => {

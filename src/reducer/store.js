@@ -1,4 +1,3 @@
-// const store = createStore(reducer, applyMiddleware(thunk));
 import reducer from "./reducer";
 
 import { createStore, applyMiddleware, compose } from "redux";
