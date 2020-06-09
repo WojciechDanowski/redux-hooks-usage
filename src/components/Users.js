@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { editUser, deleteUser, fetchUsers } from "../services/users";
+import { deleteUser, fetchUsers } from "../services/users";
+import { SET_FORM } from "../actions/actions";
 const Users = (props) => {
   const pepole = useSelector((state) => state.usersReducer.pepole);
 
@@ -11,77 +12,30 @@ const Users = (props) => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  const [editPersonId, setEditPersonId] = useState("");
-  const [editedValue, setEditedValue] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-
-  // const handleDeleteUser = (id) => {
-  //   dispatch(deleteUser(id));
-  // };
-
-  const handleEditUser = (id) => {
-    setEditPersonId(id);
-    const currentUserValues = pepole.find((person) => person.id === id);
-    setEditedValue(currentUserValues);
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUser(id));
   };
 
-  const onEditHandleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setEditedValue((currentValue) => {
-      return {
-        ...currentValue,
-        [name]: value,
-      };
+  const handleEditUser = (pepole) => {
+    dispatch({
+      type: SET_FORM,
+      payload: pepole,
     });
   };
 
-  const handleEditionSubmit = () => {
-    dispatch(editUser(editedValue, editPersonId));
-
-    setEditedValue({});
-    setEditPersonId("");
-  };
-
-  return pepole.map((editedValue) => {
-    return (
-      <li key={editedValue.id}>
-        {" "}
-        {editedValue.name} {editedValue.surname}, wiek: {editedValue.age}{" "}
-        <button onClick={() => props.handleDelete(editedValue.id)}> x </button>{" "}
-        <button onClick={() => handleEditUser(editedValue.id)}> Edytuj </button>{" "}
-        {editedValue.id === editPersonId && (
-          <>
-            <div className="AddingForm">
-              <input
-                type="text"
-                placeholder="Podaj imię..."
-                name="name"
-                onChange={onEditHandleChange}
-                value={editedValue.name}
-              />{" "}
-              <input
-                type="text"
-                placeholder="Podaj nazwisko..."
-                name="surname"
-                onChange={onEditHandleChange}
-                value={editedValue.surname}
-              />{" "}
-              <input
-                type="number"
-                placeholder="wiek"
-                name="age"
-                onChange={onEditHandleChange}
-                value={editedValue.age}
-              />{" "}
-              <button onClick={handleEditionSubmit}> Potwierdź edycję </button>{" "}
-            </div>{" "}
-          </>
-        )}{" "}
-      </li>
-    );
-  });
+  return (
+    <ul>
+      {pepole.map((user) => {
+        return (
+          <li key={user.id}>
+            {user.name} {user.surname}, wiek: {user.age}
+            <button onClick={() => handleDeleteUser(user.id)}> x </button>
+            <button onClick={() => handleEditUser(user)}> Edytuj </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 export default Users;

@@ -4,9 +4,16 @@ import {
   DELETE_USER,
   EDIT_USER,
   ADD_USERS,
+  SET_FORM,
 } from "../actions/actions";
 const initState = {
   pepole: [],
+  form: {
+    name: "",
+    surname: "",
+    age: "",
+    id: "",
+  },
 };
 
 const usersReducer = (state = initState, action) => {
@@ -41,7 +48,11 @@ const usersReducer = (state = initState, action) => {
         ...state,
         pepole: action.payload,
       };
-
+    case SET_FORM:
+      return {
+        ...state,
+        form: action.payload,
+      };
     default:
       return state;
   }
