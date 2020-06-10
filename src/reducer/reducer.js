@@ -14,6 +14,7 @@ const initState = {
     age: "",
     id: "",
   },
+  loading: false,
 };
 
 const usersReducer = (state = initState, action) => {
