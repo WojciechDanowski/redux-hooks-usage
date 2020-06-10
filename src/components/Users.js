@@ -4,6 +4,7 @@ import DeleteButton from "../styles/DeleteButton";
 import EditButton from "../styles/EditButton";
 import { deleteUser, fetchUsers } from "../services/users";
 import { SET_FORM } from "../actions/actions";
+import Li from "../styles/li";
 const Users = (props) => {
   const pepole = useSelector((state) => state.usersReducer.pepole);
 
@@ -28,13 +29,13 @@ const Users = (props) => {
     <ul>
       {pepole.map((user) => {
         return (
-          <li key={user.id}>
+          <Li key={user.id}>
             {user.name} {user.surname}, wiek: {user.age}
             <DeleteButton onClick={() => handleDeleteUser(user.id)}>
               x
             </DeleteButton>
             <EditButton onClick={() => handleEditUser(user)}>Edytuj</EditButton>
-          </li>
+          </Li>
         );
       })}
     </ul>

@@ -9,6 +9,7 @@ const EditButton = styled.button`
   transition: color 0.5s, border 0.5s, background-color 0.5s;
 
   &:hover {
+    cursor: pointer;
     color: white;
     border: 2px solid white;
     background-color: ${(props) => props.theme.selectiveYellow};

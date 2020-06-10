@@ -3,7 +3,7 @@ import styled from "styled-components";
 const DeleteButton = styled.button`
   color: black;
   border-radius: 50%;
-  border: 2px solid ${(props) => props.theme.scarlet};
+  border: 2px solid transparent;
   background-color: transparent;
   margin: 5px;
   justify-content: space-around;
