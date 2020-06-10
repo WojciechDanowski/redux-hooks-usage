@@ -5,6 +5,7 @@ const Article = styled.div`
   flex-direction: column;
   width: 200px;
   align-content: space-between;
+  margin-left: 0.5%;
 `;
 
 export default Article;
