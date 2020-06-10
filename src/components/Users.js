@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import DeleteButton from "../styles/DeleteButton";
+import EditButton from "../styles/EditButton";
 import { deleteUser, fetchUsers } from "../services/users";
 import { SET_FORM } from "../actions/actions";
 const Users = (props) => {
@@ -29,8 +30,10 @@ const Users = (props) => {
         return (
           <li key={user.id}>
             {user.name} {user.surname}, wiek: {user.age}
-            <button onClick={() => handleDeleteUser(user.id)}> x </button>
-            <button onClick={() => handleEditUser(user)}> Edytuj </button>
+            <DeleteButton onClick={() => handleDeleteUser(user.id)}>
+              x
+            </DeleteButton>
+            <EditButton onClick={() => handleEditUser(user)}>Edytuj</EditButton>
           </li>
         );
       })}

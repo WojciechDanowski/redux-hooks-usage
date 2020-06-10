@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addUser, editUser } from "../services/users";
 import { SET_FORM } from "../actions/actions";
+import Button from "../styles/AddingButton";
+import Article from "../styles/article";
+import Input from "../styles/input";
+import Overlay from "../styles/buttonsOverlay";
+import ConfirmButton from "../styles/confirmEdition";
 
 const Form = () => {
   const formData = useSelector((state) => state.usersReducer.form);
@@ -70,28 +75,30 @@ const Form = () => {
 
   return (
     <>
-      <div className="Form">
-        <input
+      <Article>
+        <Input
           type="text"
           placeholder="Podaj imię..."
           onChange={nameHandle}
           value={formData.name}
         />
-        <input
+        <Input
           type="text"
           placeholder="Podaj nazwisko..."
           onChange={surnameHandle}
           value={formData.surname}
         />
-        <input
+        <Input
           type="number"
           placeholder="wiek"
           onChange={ageHandle}
           value={formData.age}
         />
-        <button onClick={handleAddClick}>Dodaj</button>
-        <button onClick={handleEditionClick}>Potwierdź edycję</button>
-      </div>
+        <Overlay>
+          <Button onClick={handleAddClick}>Dodaj</Button>
+          <ConfirmButton onClick={handleEditionClick}>Zapisz</ConfirmButton>
+        </Overlay>
+      </Article>
     </>
   );
 };
