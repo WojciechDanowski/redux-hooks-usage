@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import DeleteButton from "../styles/DeleteButton";
+import EditButton from "../styles/EditButton";
 import { deleteUser, fetchUsers } from "../services/users";
 import { SET_FORM } from "../actions/actions";
+import Li from "../styles/li";
+import ButtonsOverlay from "../styles/listButtonsOverlay";
 const Users = (props) => {
   const pepole = useSelector((state) => state.usersReducer.pepole);
 
@@ -27,11 +30,17 @@ const Users = (props) => {
     <ul>
       {pepole.map((user) => {
         return (
-          <li key={user.id}>
-            {user.name} {user.surname}, wiek: {user.age}
-            <button onClick={() => handleDeleteUser(user.id)}> x </button>
-            <button onClick={() => handleEditUser(user)}> Edytuj </button>
-          </li>
+          <Li key={user.id}>
+            {user.name} {user.surname} , wiek: {user.age}
+            <ButtonsOverlay>
+              <DeleteButton onClick={() => handleDeleteUser(user.id)}>
+                x
+              </DeleteButton>
+              <EditButton onClick={() => handleEditUser(user)}>
+                Edytuj
+              </EditButton>
+            </ButtonsOverlay>
+          </Li>
         );
       })}
     </ul>
