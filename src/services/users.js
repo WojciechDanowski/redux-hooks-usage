@@ -4,6 +4,7 @@ import {
   DELETE_USER,
   EDIT_USER,
 } from "../actions/actions";
+import { batch } from "react-redux";
 
 export const fetchUsers = () => {
   return async (dispatch) => {
@@ -39,18 +40,24 @@ export const addUser = (user) => {
             "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify(user),
-        }
+        } 
+        
       );
+        batch(() => {
 
-      dispatch({
-        type: ADD_USER,
-        payload: user,
-      });
-      dispatch(fetchUsers());
+          dispatch({
+            type: ADD_USER,
+            payload: user,
+          });
+          dispatch(fetchUsers());
+        } 
+          
+      )
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+    } 
+    
 };
 
 export const deleteUser = (id) => {
