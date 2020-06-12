@@ -9,6 +9,7 @@ import Article from "../styles/article";
 import Input from "../styles/input";
 import Overlay from "../styles/buttonsOverlay";
 import ConfirmButton from "../styles/confirmEdition";
+import { batch } from "react-redux";
 
 const Form = () => {
   const formData = useSelector((state) => state.usersReducer.form);
@@ -47,29 +48,36 @@ const Form = () => {
   const handleAddClick = () => {
     const payload = {
       ...formData,
-    };
-    dispatch(addUser(payload));
-    dispatch({
-      type: SET_FORM,
-      payload: {
-        name: "",
-        surname: "",
-        age: "",
-      },
+    };  
+    batch(() => {
+
+      dispatch(addUser(payload));
+      dispatch({
+        type: SET_FORM,
+        payload: {
+          name: "",
+          surname: "",
+          age: "",
+        },
+      })
     });
   };
   const handleEditionClick = () => {
     const payload = {
       ...formData,
     };
-    dispatch(editUser(payload));
-    dispatch({
-      type: SET_FORM,
-      payload: {
-        name: "",
-        surname: "",
-        age: "",
-      },
+
+    batch(()=> {
+
+      dispatch(editUser(payload));
+      dispatch({
+        type: SET_FORM,
+        payload: {
+          name: "",
+          surname: "",
+          age: "",
+        },
+      })
     });
   };
 
