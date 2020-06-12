@@ -5,6 +5,7 @@ import {
   EDIT_USER,
   ADD_USERS,
   SET_FORM,
+  SET_LOADER,
 } from "../actions/actions";
 const initState = {
   pepole: [],
@@ -54,6 +55,11 @@ const usersReducer = (state = initState, action) => {
         ...state,
         form: action.payload,
       };
+      case SET_LOADER: 
+      return {
+        ...state,
+        loading: action.payload,
+      }
     default:
       return state;
   }
