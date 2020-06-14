@@ -15,7 +15,7 @@ const initState = {
     age: "",
     id: "",
   },
-  loading: false,
+  loading: true,
 };
 
 const usersReducer = (state = initState, action) => {
@@ -55,11 +55,11 @@ const usersReducer = (state = initState, action) => {
         ...state,
         form: action.payload,
       };
-      case SET_LOADER: 
+    case SET_LOADER:
       return {
         ...state,
         loading: action.payload,
-      }
+      };
     default:
       return state;
   }
