@@ -3,11 +3,13 @@ import {
   ADD_USER,
   DELETE_USER,
   EDIT_USER,
+  SET_LOADER,
 } from "../actions/actions";
 import { batch } from "react-redux";
 
 export const fetchUsers = () => {
   return async (dispatch) => {
+    
     try {
       const response = await fetch(
         "https://react-redux-hooks-704ffa.firebaseio.com/users.json/"
@@ -29,7 +31,12 @@ export const fetchUsers = () => {
 };
 
 export const addUser = (user) => {
+  
   return async (dispatch) => {
+    dispatch({
+      type: SET_LOADER,
+      payload: true,
+    })
     try {
       await fetch(
         "https://react-redux-hooks-704ffa.firebaseio.com/users.json",
@@ -49,6 +56,10 @@ export const addUser = (user) => {
             type: ADD_USER,
             payload: user,
           });
+          dispatch({
+            type: SET_LOADER,
+            payload: false,
+          })
           dispatch(fetchUsers());
         } 
           
