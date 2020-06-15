@@ -1,4 +1,6 @@
-import { combineReducers } from "redux";
+import {
+  combineReducers
+} from "redux";
 import {
   ADD_USER,
   DELETE_USER,
@@ -7,6 +9,7 @@ import {
   SET_FORM,
   SET_LOADER,
 } from "../actions/actions";
+import PropTypes from "prop-types";
 const initState = {
   pepole: [],
   form: {
@@ -68,5 +71,10 @@ const usersReducer = (state = initState, action) => {
 const reducer = combineReducers({
   usersReducer,
 });
+initState.form.propTypes = {
+  name: PropTypes.string,
+  surname: PropTypes.string,
+  age: PropTypes.number,
+};
 
 export default reducer;

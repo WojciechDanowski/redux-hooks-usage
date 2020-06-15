@@ -15,6 +15,7 @@ const UsersList = () => {
       {pepole.map((user) => {
         return (
           <Users
+            key={user.id}
             id={user.id}
             name={user.name}
             surname={user.surname}

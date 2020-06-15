@@ -10,7 +10,7 @@ import Input from "../../styles/input";
 import Overlay from "../../styles/buttonsOverlay";
 import ConfirmButton from "../../styles/confirmEdition";
 import { batch } from "react-redux";
-
+import PropTypes from "prop-types";
 const Form = () => {
   const formData = useSelector((state) => state.usersReducer.form);
   const dispatch = useDispatch();
@@ -87,24 +87,24 @@ const Form = () => {
           placeholder="Podaj imię..."
           onChange={nameHandle}
           value={formData.name}
-        />{" "}
+        />
         <Input
           type="text"
           placeholder="Podaj nazwisko..."
           onChange={surnameHandle}
           value={formData.surname}
-        />{" "}
+        />
         <Input
           type="number"
           placeholder="wiek"
           onChange={ageHandle}
           value={formData.age}
-        />{" "}
+        />
         <Overlay>
-          <Button onClick={handleAddClick}> Dodaj </Button>{" "}
-          <ConfirmButton onClick={handleEditionClick}> Zapisz </ConfirmButton>{" "}
-        </Overlay>{" "}
-      </Article>{" "}
+          <Button onClick={handleAddClick}> Dodaj </Button>
+          <ConfirmButton onClick={handleEditionClick}> Zapisz </ConfirmButton>
+        </Overlay>
+      </Article>
     </>
   );
 };
